@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  replicas: 2  # Number of replicas (adjust based on your need)
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: your-local-backend-image:latest  # Replace with your backend Docker image
+        imagePullPolicy: IfNotPresent  # Use local image if present
+        ports:
+        - containerPort: 5000  # Port the backend listens on
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"  # Adjust based on your environment
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
