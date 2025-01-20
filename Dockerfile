@@ -1,5 +1,5 @@
 # Use the official .NET SDK image to build the app
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -15,7 +15,7 @@ COPY . ./
 RUN dotnet publish -c Release -o /app/publish
 
 # Use the official .NET runtime image to run the app
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 
 # Set the working directory in the container
 WORKDIR /app
@@ -23,8 +23,9 @@ WORKDIR /app
 # Copy the published app from the build stage
 COPY --from=build /app/publish .
 
+ENV ASPNETCORE_URLS=http://+:5000
 # Expose the port the app will run on
-EXPOSE 5000
+EXPOSE 7015
 
 # Set the entry point for the application
-ENTRYPOINT ["dotnet", "YourProjectName.dll"]
+ENTRYPOINT ["dotnet", "TodoAppBackend.dll"]

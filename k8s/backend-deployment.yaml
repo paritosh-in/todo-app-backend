@@ -5,7 +5,7 @@ metadata:
   labels:
     app: backend
 spec:
-  replicas: 2  # Number of replicas (adjust based on your need)
+  replicas: 1  # Number of replicas (adjust based on your need)
   selector:
     matchLabels:
       app: backend
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: your-local-backend-image:latest  # Replace with your backend Docker image
+        image: backend:latest  # Replace with your backend Docker image
         imagePullPolicy: IfNotPresent  # Use local image if present
         ports:
         - containerPort: 5000  # Port the backend listens on
